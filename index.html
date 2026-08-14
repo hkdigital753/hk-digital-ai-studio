@@ -20,8 +20,6 @@ body {
     color: #111827;
 }
 
-/* HEADER */
-
 header {
     background: #071a33;
     color: white;
@@ -47,22 +45,18 @@ header {
 }
 
 .credits {
-    background: #ffffff;
+    background: white;
     color: #071a33;
     padding: 10px 15px;
     border-radius: 10px;
     font-weight: bold;
 }
 
-/* CONTAINER */
-
 .container {
     max-width: 1200px;
     margin: auto;
     padding: 30px 20px;
 }
-
-/* HERO */
 
 .hero {
     background: white;
@@ -82,8 +76,6 @@ header {
     line-height: 1.6;
 }
 
-/* NAVIGATION */
-
 .navigation {
     display: flex;
     gap: 10px;
@@ -102,7 +94,10 @@ header {
     color: white;
 }
 
-/* GENERATOR */
+button {
+    cursor: pointer;
+    font-weight: bold;
+}
 
 .generator {
     background: white;
@@ -119,8 +114,6 @@ header {
     color: #6b7280;
     margin-bottom: 25px;
 }
-
-/* FORM */
 
 .form-grid {
     display: grid;
@@ -164,8 +157,6 @@ textarea {
     resize: vertical;
 }
 
-/* BUTTON */
-
 .primary-button {
     background: #071a33;
     color: white;
@@ -173,8 +164,6 @@ textarea {
     padding: 14px 22px;
     border-radius: 10px;
     margin-top: 20px;
-    cursor: pointer;
-    font-weight: bold;
     font-size: 15px;
 }
 
@@ -182,17 +171,12 @@ textarea {
     background: #123b6d;
 }
 
-/* RESULT */
-
 .result {
     margin-top: 30px;
     display: none;
 }
 
 .result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 12px;
 }
 
@@ -219,8 +203,6 @@ textarea {
     border: 1px solid #071a33;
     padding: 11px 18px;
     border-radius: 9px;
-    cursor: pointer;
-    font-weight: bold;
 }
 
 .secondary-button:hover {
@@ -228,13 +210,12 @@ textarea {
     color: white;
 }
 
-/* MODULES */
-
 .modules {
     margin-top: 35px;
 }
 
-.modules h2 {
+.modules h2,
+.pricing h2 {
     margin-bottom: 15px;
 }
 
@@ -266,20 +247,20 @@ textarea {
     line-height: 1.5;
 }
 
-/* PRICING */
-
 .pricing {
     margin-top: 35px;
 }
 
-.pricing h2 {
-    margin-bottom: 15px;
+.pricing-intro {
+    color: #6b7280;
+    margin-bottom: 25px;
 }
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 18px;
+    align-items: stretch;
 }
 
 .price-card {
@@ -288,10 +269,24 @@ textarea {
     padding: 25px;
     text-align: center;
     border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
 }
 
 .price-card.popular {
-    border: 2px solid #071a33;
+    border: 3px solid #071a33;
+    transform: translateY(-5px);
+}
+
+.badge {
+    background: #071a33;
+    color: white;
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 12px;
 }
 
 .price-card h3 {
@@ -301,27 +296,51 @@ textarea {
 .price {
     font-size: 28px;
     font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.duration {
+    color: #6b7280;
+    font-size: 13px;
     margin-bottom: 15px;
 }
 
 .price-card ul {
     list-style: none;
-    line-height: 1.9;
-    color: #6b7280;
+    line-height: 1.8;
+    color: #4b5563;
     margin-bottom: 20px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.price-card li {
+    border-bottom: 1px solid #f0f2f5;
+    padding: 3px 0;
 }
 
 .price-card button {
     background: #071a33;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 12px 15px;
     border-radius: 9px;
-    cursor: pointer;
-    font-weight: bold;
+    width: 100%;
 }
 
-/* FOOTER */
+.price-card button:hover {
+    background: #123b6d;
+}
+
+.savings {
+    background: #eef6ff;
+    color: #071a33;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
 
 footer {
     background: #071a33;
@@ -335,8 +354,6 @@ footer p {
     margin: 5px;
     font-size: 14px;
 }
-
-/* MOBILE */
 
 @media(max-width:700px) {
 
@@ -358,6 +375,9 @@ footer p {
         grid-column: auto;
     }
 
+    .price-card.popular {
+        transform: none;
+    }
 }
 
 </style>
@@ -370,17 +390,12 @@ footer p {
 <div class="header-content">
 
 <div class="logo">
-
 <h1>HK Digital AI Studio</h1>
-
 <p>Le digital au service de vos ambitions</p>
-
 </div>
 
 <div class="credits">
-
-⚡ 50 crédits
-
+⚡ 10 crédits gratuits
 </div>
 
 </div>
@@ -396,11 +411,9 @@ footer p {
 <h2>Créez avec l'intelligence artificielle 🚀</h2>
 
 <p>
-
 HK Digital AI Studio vous aide à créer des prompts professionnels,
 des contenus marketing, des publications réseaux sociaux,
 des publicités et des stratégies de communication.
-
 </p>
 
 </section>
@@ -437,7 +450,6 @@ vous prépare un prompt structuré et professionnel.
 
 <div class="form-grid">
 
-
 <div class="form-group">
 
 <label>Outil IA</label>
@@ -445,13 +457,9 @@ vous prépare un prompt structuré et professionnel.
 <select id="aiTool">
 
 <option>ChatGPT</option>
-
 <option>Gemini</option>
-
 <option>Claude</option>
-
 <option>Générateur d'image IA</option>
-
 <option>Générateur vidéo IA</option>
 
 </select>
@@ -466,19 +474,12 @@ vous prépare un prompt structuré et professionnel.
 <select id="domain">
 
 <option>Marketing digital</option>
-
 <option>Communication</option>
-
 <option>Entrepreneuriat</option>
-
 <option>Réseaux sociaux</option>
-
 <option>Vente</option>
-
 <option>Formation</option>
-
 <option>Création de contenu</option>
-
 <option>Autre</option>
 
 </select>
@@ -506,15 +507,10 @@ placeholder="Exemple : entrepreneurs africains"
 <select id="tone">
 
 <option>Professionnel</option>
-
 <option>Persuasif</option>
-
 <option>Éducatif</option>
-
 <option>Dynamique</option>
-
 <option>Simple et accessible</option>
-
 <option>Premium</option>
 
 </select>
@@ -532,7 +528,6 @@ placeholder="Exemple : Je veux créer une publication Facebook pour promouvoir m
 ></textarea>
 
 </div>
-
 
 </div>
 
@@ -552,22 +547,16 @@ placeholder="Exemple : Je veux créer une publication Facebook pour promouvoir m
 
 </div>
 
-
 <div class="result-box" id="resultText"></div>
-
 
 <div class="result-actions">
 
 <button class="secondary-button" onclick="copyPrompt()">
-
 📋 Copier
-
 </button>
 
 <button class="secondary-button" onclick="generatePrompt()">
-
 🔄 Régénérer
-
 </button>
 
 </div>
@@ -669,93 +658,180 @@ Créez des prompts et scénarios vidéo.
 
 <section class="pricing" id="pricing">
 
-<h2>💎 Abonnements HK Digital</h2>
+<h2>💎 Choisissez votre abonnement</h2>
+
+<p class="pricing-intro">
+Des formules simples et accessibles pour utiliser HK Digital AI Studio selon vos besoins.
+</p>
+
 
 <div class="pricing-grid">
 
 
+<!-- FREE -->
+
 <div class="price-card">
 
-<h3>⚡ Journalier</h3>
+<h3>🆓 FREE</h3>
 
-<div class="price">500 FCFA</div>
+<div class="price">0 FCFA</div>
+
+<div class="duration">
+Accès découverte
+</div>
 
 <ul>
 
-<li>50 crédits</li>
-
-<li>Prompts IA</li>
-
-<li>Textes marketing</li>
-
-<li>Réseaux sociaux</li>
-
-<li>Publicités</li>
+<li>✓ 10 crédits offerts</li>
+<li>✓ Générateur de prompts</li>
+<li>✓ Textes simples</li>
+<li>✓ Quelques modèles</li>
+<li>✓ Copier les résultats</li>
 
 </ul>
 
-<button onclick="choosePlan('Journalier')">
-
-Choisir
-
+<button onclick="choosePlan('FREE')">
+Commencer gratuitement
 </button>
 
 </div>
 
+
+<!-- JOURNALIER -->
+
+<div class="price-card">
+
+<h3>⚡ JOURNALIER</h3>
+
+<div class="price">200 FCFA</div>
+
+<div class="duration">
+24 heures
+</div>
+
+<ul>
+
+<li>✓ 20 crédits</li>
+<li>✓ Prompts IA</li>
+<li>✓ Textes marketing</li>
+<li>✓ Réseaux sociaux</li>
+<li>✓ Publicités</li>
+<li>✓ Prompts image</li>
+<li>✓ Prompts vidéo</li>
+
+</ul>
+
+<button onclick="choosePlan('JOURNALIER')">
+Choisir
+</button>
+
+</div>
+
+
+<!-- HEBDOMADAIRE -->
+
+<div class="price-card">
+
+<h3>📅 HEBDOMADAIRE</h3>
+
+<div class="price">1 000 FCFA</div>
+
+<div class="duration">
+7 jours
+</div>
+
+<ul>
+
+<li>✓ 150 crédits</li>
+<li>✓ Tous les générateurs</li>
+<li>✓ Prompts avancés</li>
+<li>✓ Textes marketing</li>
+<li>✓ Publicités</li>
+<li>✓ Stratégies marketing</li>
+<li>✓ Historique</li>
+
+</ul>
+
+<button onclick="choosePlan('HEBDOMADAIRE')">
+Choisir
+</button>
+
+</div>
+
+
+<!-- PRO -->
 
 <div class="price-card popular">
 
-<h3>🚀 Mensuel</h3>
+<div class="badge">
+⭐ LE PLUS POPULAIRE
+</div>
 
-<div class="price">5 000 FCFA</div>
+<h3>🚀 PRO</h3>
+
+<div class="price">3 000 FCFA</div>
+
+<div class="duration">
+30 jours
+</div>
+
+<div class="savings">
+Excellent rapport qualité/prix
+</div>
 
 <ul>
 
-<li>1 000 crédits</li>
-
-<li>Tous les générateurs</li>
-
-<li>Marketing avancé</li>
-
-<li>Prompts image</li>
-
-<li>Prompts vidéo</li>
+<li>✓ 600 crédits</li>
+<li>✓ Tous les générateurs</li>
+<li>✓ Marketing avancé</li>
+<li>✓ Réseaux sociaux</li>
+<li>✓ Publicités</li>
+<li>✓ Calendriers éditoriaux</li>
+<li>✓ Storytelling</li>
+<li>✓ Prompts image</li>
+<li>✓ Prompts vidéo</li>
+<li>✓ Historique</li>
+<li>✓ Bibliothèque de modèles</li>
 
 </ul>
 
-<button onclick="choosePlan('Mensuel')">
-
-Choisir
-
+<button onclick="choosePlan('PRO')">
+🚀 Choisir PRO
 </button>
 
 </div>
 
 
+<!-- ANNUEL -->
+
 <div class="price-card">
 
-<h3>👑 Annuel</h3>
+<h3>👑 ANNUEL</h3>
 
-<div class="price">50 000 FCFA</div>
+<div class="price">30 000 FCFA</div>
+
+<div class="duration">
+365 jours
+</div>
+
+<div class="savings">
+💰 Économisez 6 000 FCFA
+</div>
 
 <ul>
 
-<li>15 000 crédits</li>
-
-<li>Tous les outils</li>
-
-<li>Fonctionnalités premium</li>
-
-<li>Accès prioritaire</li>
-
-<li>12 mois</li>
+<li>✓ 8 000 crédits</li>
+<li>✓ Tous les outils</li>
+<li>✓ Fonctionnalités PRO</li>
+<li>✓ Bibliothèque complète</li>
+<li>✓ Historique étendu</li>
+<li>✓ Nouvelles fonctionnalités</li>
+<li>✓ Support prioritaire</li>
 
 </ul>
 
-<button onclick="choosePlan('Annuel')">
-
-Choisir
-
+<button onclick="choosePlan('ANNUEL')">
+👑 Choisir l'annuel
 </button>
 
 </div>
@@ -783,13 +859,9 @@ Choisir
 function generatePrompt() {
 
 const aiTool = document.getElementById("aiTool").value;
-
 const domain = document.getElementById("domain").value;
-
 const audience = document.getElementById("audience").value;
-
 const tone = document.getElementById("tone").value;
-
 const objective = document.getElementById("objective").value;
 
 
@@ -843,9 +915,7 @@ document.getElementById("resultText").textContent = prompt;
 document.getElementById("result").style.display = "block";
 
 document.getElementById("result").scrollIntoView({
-
 behavior: "smooth"
-
 });
 
 }
@@ -865,9 +935,7 @@ alert("✅ Prompt copié !");
 function scrollToSection(id) {
 
 document.getElementById(id).scrollIntoView({
-
 behavior: "smooth"
-
 });
 
 }
@@ -876,13 +944,9 @@ behavior: "smooth"
 function choosePlan(plan) {
 
 alert(
-
 "Vous avez sélectionné le forfait " +
-
 plan +
-
 ". Le système de paiement sera ajouté prochainement."
-
 );
 
 }
@@ -890,5 +954,4 @@ plan +
 </script>
 
 </body>
-
-  </html>
+    </html>
