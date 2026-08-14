@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HK Digital AI Studio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #111827;
+    }
+
+    header {
+      background: #0b1f3a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px 20px;
+    }
+
+    .welcome {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .welcome h2 {
+      margin-bottom: 10px;
+    }
+
+    .credits {
+      display: inline-block;
+      margin-top: 15px;
+      background: #e8f0ff;
+      color: #0b1f3a;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 22px;
+    }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .price-card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+    }
+
+    .price-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      color: #4b5563;
+    }
+
+    button {
+      border: none;
+      background: #0b1f3a;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #163d70;
+    }
+
+    .popular {
+      border: 2px solid #0b1f3a;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .container {
+        padding: 18px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>HK Digital AI Studio</h1>
+    <p>Le digital au service de vos ambitions</p>
+  </header>
+
+  <main class="container">
+
+    <section class="welcome">
+      <h2>Bienvenue sur HK Digital AI Studio 👋</h2>
+      <p>
+        Créez vos prompts, contenus marketing et publications
+        avec l'intelligence artificielle.
+      </p>
+
+      <div class="credits">
+        ⚡ Crédits disponibles : 50
+      </div>
+    </section>
+
+    <h2 class="section-title">🚀 Nos outils IA</h2>
+
+    <section class="modules">
+
+      <div class="card" onclick="showMessage('Générateur de prompts')">
+        <div class="icon">🤖</div>
+        <h3>Prompt IA</h3>
+        <p>
+          Créez des prompts professionnels et optimisés
+          pour vos différents besoins.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Générateur de textes')">
+        <div class="icon">✍️</div>
+        <h3>Générateur de textes</h3>
+        <p>
+          Générez des textes professionnels, commerciaux
+          et créatifs.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Réseaux sociaux')">
+        <div class="icon">📱</div>
+        <h3>Réseaux sociaux</h3>
+        <p>
+          Créez vos publications Facebook, Instagram,
+          TikTok, LinkedIn et WhatsApp.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Publicités')">
+        <div class="icon">📢</div>
+        <h3>Publicités</h3>
+        <p>
+          Créez des textes publicitaires et des campagnes
+          plus convaincantes.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Marketing')">
+        <div class="icon">📈</div>
+        <h3>Marketing</h3>
+        <p>
+          Obtenez des stratégies marketing, idées de contenu,
+          offres et plans d'action.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Prompts image')">
+        <div class="icon">🖼️</div>
+        <h3>Prompt Image</h3>
+        <p>
+          Créez des prompts professionnels pour vos
+          générateurs d'images IA.
+        </p>
+      </div>
+
+      <div class="card" onclick="showMessage('Prompts vidéo')">
+        <div class="icon">🎬</div>
+        <h3>Prompt Vidéo</h3>
+        <p>
+          Créez des prompts et scénarios pour vos
+          outils de génération vidéo IA.
+        </p>
+      </div>
+
+    </section>
+
+    <h2 class="section-title">💎 Nos abonnements</h2>
+
+    <section class="pricing">
+
+      <div class="price-card">
+        <h3>⚡ Journalier</h3>
+        <div class="price">500 FCFA</div>
+
+        <ul>
+          <li>50 crédits</li>
+          <li>Prompts IA</li>
+          <li>Textes marketing</li>
+          <li>Réseaux sociaux</li>
+          <li>Publicités</li>
+        </ul>
+
+        <button onclick="subscribe('Journalier')">
+          Choisir
+        </button>
+      </div>
+
+      <div class="price-card popular">
+        <h3>🚀 Mensuel</h3>
+        <div class="price">5 000 FCFA</div>
+
+        <ul>
+          <li>1 000 crédits</li>
+          <li>Tous les générateurs</li>
+          <li>Marketing avancé</li>
+          <li>Prompts image</li>
+          <li>Prompts vidéo</li>
+        </ul>
+
+        <button onclick="subscribe('Mensuel')">
+          Choisir
+        </button>
+      </div>
+
+      <div class="price-card">
+        <h3>👑 Annuel</h3>
+        <div class="price">50 000 FCFA</div>
+
+        <ul>
+          <li>15 000 crédits</li>
+          <li>Tous les outils</li>
+          <li>Fonctionnalités premium</li>
+          <li>Accès prioritaire</li>
+          <li>12 mois d'accès</li>
+        </ul>
+
+        <button onclick="subscribe('Annuel')">
+          Choisir
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 HK Digital AI Studio</p>
+    <p>Le digital au service de vos ambitions.</p>
+  </footer>
+
+  <script>
+    function showMessage(module) {
+      alert(
+        module +
+        " sera bientôt disponible dans HK Digital AI Studio."
+      );
+    }
+
+    function subscribe(plan) {
+      alert(
+        "Vous avez choisi l'abonnement " +
+        plan +
+        ". Le système de paiement sera ajouté prochainement."
+      );
+    }
+  </script>
+
+</body>
+  </html>
