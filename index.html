@@ -1293,4 +1293,352 @@ async function signup() {
         message.textContent =
             "✅ Compte créé avec succès !";
 
-        s
+                setTimeout(closeAuth, 1000);
+
+    } else {
+
+        message.textContent =
+            "✅ Compte créé ! Vérifiez votre email pour confirmer votre inscription.";
+
+    }
+
+}
+
+
+/* =====================================================
+   CONNEXION
+===================================================== */
+
+async function login() {
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const message =
+        document.getElementById("authMessage");
+
+    if (!email || !password) {
+
+        message.textContent =
+            "⚠️ Veuillez remplir tous les champs.";
+
+        return;
+
+    }
+
+    message.textContent =
+        "⏳ Connexion...";
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+        password: password
+
+    });
+
+    if (error) {
+
+        message.textContent =
+            "❌ " + error.message;
+
+        return;
+
+    }
+
+    currentUser = data.user;
+
+    await loadProfile();
+
+    message.textContent =
+        "✅ Connexion réussie !";
+
+    setTimeout(closeAuth, 800);
+
+}
+
+
+/* =====================================================
+   DÉCONNEXION
+===================================================== */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    updateLoggedOut();
+
+    closeAuth();
+
+}
+
+
+/* =====================================================
+   SURVEILLER LA SESSION
+===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    async function(event, session) {
+
+        if (session) {
+
+            currentUser = session.user;
+
+            await loadProfile();
+
+        } else {
+
+            updateLoggedOut();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   GÉNÉRATION DU PROMPT
+===================================================== */
+
+async function generatePrompt() {
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 Vous devez créer un compte ou vous connecter pour utiliser le générateur."
+        );
+
+        openAuth();
+
+        return;
+
+    }
+
+    if (!currentProfile) {
+
+        await loadProfile();
+
+    }
+
+    if (!currentProfile || currentProfile.credits < 1) {
+
+        alert(
+            "⚠️ Vous n'avez plus de crédits. Choisissez un abonnement pour continuer."
+        );
+
+        scrollToSection("pricing");
+
+        return;
+
+    }
+
+    const aiTool =
+        document.getElementById("aiTool").value;
+
+    const domain =
+        document.getElementById("domain").value;
+
+    const audience =
+        document.getElementById("audience").value;
+
+    const tone =
+        document.getElementById("tone").value;
+
+    const objective =
+        document.getElementById("objective").value;
+
+    if (!objective.trim()) {
+
+        alert(
+            "Veuillez décrire ce que vous souhaitez créer."
+        );
+
+        return;
+
+    }
+
+    const prompt = `Tu es un expert en ${domain} et en création de contenu assistée par intelligence artificielle.
+
+Ta mission est de m'aider à réaliser la demande suivante :
+
+"${objective}"
+
+PUBLIC CIBLE :
+${audience || "À déterminer selon le contexte"}
+
+OUTIL IA :
+${aiTool}
+
+TON :
+${tone}
+
+INSTRUCTIONS :
+
+1. Analyse ma demande avant de répondre.
+2. Comprends précisément l'objectif recherché.
+3. Adapte ta réponse au public cible.
+4. Utilise un langage clair, professionnel et pertinent.
+5. Donne un résultat directement exploitable.
+6. Évite les informations génériques ou inutiles.
+7. Structure clairement ta réponse.
+8. Si certaines informations importantes manquent, indique les éléments à préciser.
+
+OBJECTIF FINAL :
+
+Produire un résultat de haute qualité, pratique, précis et orienté résultats.
+
+Commence maintenant.`;
+
+    const {
+        data: creditUsed,
+        error: creditError
+    } = await supabaseClient.rpc(
+        "use_credits",
+        {
+            amount: 1
+        }
+    );
+
+    if (creditError) {
+
+        console.error(creditError);
+
+        alert(
+            "❌ Impossible de vérifier vos crédits."
+        );
+
+        return;
+
+    }
+
+    if (!creditUsed) {
+
+        alert(
+            "⚠️ Vous n'avez plus assez de crédits."
+        );
+
+        await loadProfile();
+
+        return;
+
+    }
+
+    const {
+        error: generationError
+    } = await supabaseClient
+        .from("generations")
+        .insert({
+
+            user_id: currentUser.id,
+
+            type: "PROMPT",
+
+            input: objective,
+
+            output: prompt,
+
+            credits_used: 1
+
+        });
+
+    if (generationError) {
+
+        console.error(generationError);
+
+    }
+
+    document.getElementById("resultText").textContent =
+        prompt;
+
+    document.getElementById("result").style.display =
+        "block";
+
+    await loadProfile();
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   COPIER
+===================================================== */
+
+function copyPrompt() {
+
+    const text =
+        document.getElementById("resultText").textContent;
+
+    navigator.clipboard.writeText(text)
+        .then(function() {
+
+            alert("✅ Prompt copié !");
+
+        })
+        .catch(function() {
+
+            alert("❌ Impossible de copier automatiquement.");
+
+        });
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function scrollToSection(id) {
+
+    document
+        .getElementById(id)
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =====================================================
+   ABONNEMENTS
+===================================================== */
+
+function choosePlan(plan) {
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 Connectez-vous ou créez un compte avant de choisir un abonnement."
+        );
+
+        openAuth();
+
+        return;
+
+    }
+
+    alert(
+        "Vous avez sélectionné le forfait " +
+        plan +
+        ". Le paiement sera connecté prochainement."
+    );
+
+}
+
+
+/* =====================================================
+   FIN DU JAVASCRIPT
+===================================================== */
+
+</script>
+
+</body>
+
+</html>
