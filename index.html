@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,7 +27,7 @@ body {
 header {
     background: #071a33;
     color: white;
-    padding: 22px;
+    padding: 20px;
 }
 
 .header-content {
@@ -34,11 +36,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .logo h1 {
-    font-size: 24px;
+    font-size: 23px;
 }
 
 .logo p {
@@ -47,17 +49,18 @@ header {
     margin-top: 5px;
 }
 
-.header-right {
+.account-area {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .credits {
     background: white;
     color: #071a33;
-    padding: 10px 15px;
+    padding: 9px 13px;
     border-radius: 10px;
     font-weight: bold;
 }
@@ -65,15 +68,10 @@ header {
 .account-button {
     background: #123b6d;
     color: white;
-    border: 1px solid #41648d;
-    padding: 10px 15px;
-    border-radius: 10px;
+    border: 1px solid #6d8db4;
+    padding: 9px 13px;
+    border-radius: 9px;
     cursor: pointer;
-    font-weight: bold;
-}
-
-.account-button:hover {
-    background: #1d548e;
 }
 
 .container {
@@ -86,7 +84,7 @@ header {
     background: white;
     padding: 30px;
     border-radius: 18px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.06);
 }
 
@@ -111,18 +109,14 @@ header {
     background: white;
     color: #071a33;
     border: 1px solid #dbe3ef;
-    padding: 11px 16px;
+    padding: 10px 15px;
     border-radius: 9px;
+    cursor: pointer;
 }
 
 .navigation button:hover {
     background: #071a33;
     color: white;
-}
-
-button {
-    cursor: pointer;
-    font-weight: bold;
 }
 
 .generator {
@@ -172,12 +166,6 @@ textarea {
     outline: none;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #071a33;
-}
-
 textarea {
     min-height: 120px;
     resize: vertical;
@@ -191,19 +179,13 @@ textarea {
     border-radius: 10px;
     margin-top: 20px;
     font-size: 15px;
-}
-
-.primary-button:hover {
-    background: #123b6d;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .result {
     margin-top: 30px;
     display: none;
-}
-
-.result-header {
-    margin-bottom: 12px;
 }
 
 .result-box {
@@ -229,14 +211,11 @@ textarea {
     border: 1px solid #071a33;
     padding: 11px 18px;
     border-radius: 9px;
+    cursor: pointer;
 }
 
-.secondary-button:hover {
-    background: #071a33;
-    color: white;
-}
-
-.modules {
+.modules,
+.pricing {
     margin-top: 35px;
 }
 
@@ -273,10 +252,6 @@ textarea {
     line-height: 1.5;
 }
 
-.pricing {
-    margin-top: 35px;
-}
-
 .pricing-intro {
     color: #6b7280;
     margin-bottom: 25px;
@@ -286,7 +261,6 @@ textarea {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 18px;
-    align-items: stretch;
 }
 
 .price-card {
@@ -301,7 +275,6 @@ textarea {
 
 .price-card.popular {
     border: 3px solid #071a33;
-    transform: translateY(-5px);
 }
 
 .badge {
@@ -315,14 +288,10 @@ textarea {
     margin-bottom: 12px;
 }
 
-.price-card h3 {
-    margin-bottom: 10px;
-}
-
 .price {
     font-size: 28px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin: 10px 0;
 }
 
 .duration {
@@ -340,22 +309,14 @@ textarea {
     flex-grow: 1;
 }
 
-.price-card li {
-    border-bottom: 1px solid #f0f2f5;
-    padding: 3px 0;
-}
-
 .price-card button {
     background: #071a33;
     color: white;
     border: none;
-    padding: 12px 15px;
+    padding: 12px;
     border-radius: 9px;
-    width: 100%;
-}
-
-.price-card button:hover {
-    background: #123b6d;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .savings {
@@ -366,19 +327,6 @@ textarea {
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 15px;
-}
-
-footer {
-    background: #071a33;
-    color: white;
-    text-align: center;
-    padding: 25px;
-    margin-top: 50px;
-}
-
-footer p {
-    margin: 5px;
-    font-size: 14px;
 }
 
 .modal {
@@ -392,105 +340,88 @@ footer p {
     padding: 20px;
 }
 
-.modal-content {
+.modal-box {
     background: white;
     width: 100%;
-    max-width: 430px;
+    max-width: 420px;
+    padding: 25px;
     border-radius: 18px;
-    padding: 30px;
     position: relative;
 }
 
-.modal-content h2 {
-    margin-bottom: 10px;
-}
-
-.modal-description {
-    color: #6b7280;
+.modal-box h2 {
     margin-bottom: 20px;
-    line-height: 1.5;
 }
 
 .close {
     position: absolute;
-    right: 20px;
+    right: 18px;
     top: 15px;
+    border: none;
+    background: none;
     font-size: 25px;
     cursor: pointer;
-    color: #6b7280;
 }
 
 .auth-tabs {
     display: flex;
+    gap: 8px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #e5e7eb;
 }
 
-.auth-tab {
+.auth-tabs button {
     flex: 1;
-    padding: 12px;
-    border: none;
-    background: transparent;
-    color: #6b7280;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.auth-tab.active {
-    color: #071a33;
-    border-bottom: 3px solid #071a33;
+.auth-tabs button.active {
+    background: #071a33;
+    color: white;
 }
 
 .auth-form {
-    display: none;
-}
-
-.auth-form.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .auth-form input {
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 
-.auth-button {
-    width: 100%;
+.auth-submit {
     background: #071a33;
     color: white;
     border: none;
     padding: 13px;
-    border-radius: 10px;
-    margin-top: 8px;
-}
-
-.auth-button:hover {
-    background: #123b6d;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .auth-message {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 8px;
-    display: none;
+    margin-top: 12px;
     font-size: 14px;
+    line-height: 1.5;
 }
 
 .account-info {
     background: #f8fafc;
     border-radius: 12px;
-    padding: 18px;
-    margin: 20px 0;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
-.account-info p {
-    margin: 7px 0;
-}
-
-.logout-button {
-    width: 100%;
-    background: #dc2626;
+footer {
+    background: #071a33;
     color: white;
-    border: none;
-    padding: 13px;
-    border-radius: 10px;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
 }
 
 @media(max-width:700px) {
@@ -500,8 +431,8 @@ footer p {
         align-items: flex-start;
     }
 
-    .header-right {
-        width: 100%;
+    .account-area {
+        justify-content: flex-start;
     }
 
     .hero h2 {
@@ -516,37 +447,36 @@ footer p {
         grid-column: auto;
     }
 
-    .price-card.popular {
-        transform: none;
-    }
-
-    .credits {
-        flex: 1;
-    }
 }
 
 </style>
+
 </head>
 
 <body>
+
 
 <header>
 
 <div class="header-content">
 
 <div class="logo">
+
 <h1>HK Digital AI Studio</h1>
+
 <p>Le digital au service de vos ambitions</p>
+
 </div>
 
-<div class="header-right">
 
-<div class="credits">
-⚡ <span id="creditsDisplay">10</span> crédits
+<div class="account-area">
+
+<div class="credits" id="creditsDisplay">
+⚡ 0 crédits
 </div>
 
-<button class="account-button" onclick="openAccount()">
-👤 <span id="accountButtonText">Connexion</span>
+<button class="account-button" id="accountButton" onclick="openAuth()">
+👤 Se connecter
 </button>
 
 </div>
@@ -557,6 +487,7 @@ footer p {
 
 
 <main class="container">
+
 
 <section class="hero">
 
@@ -574,7 +505,7 @@ des publicités et des stratégies de communication.
 <div class="navigation">
 
 <button onclick="scrollToSection('generator')">
-🤖 Générateur de prompts
+🤖 Générateur
 </button>
 
 <button onclick="scrollToSection('modules')">
@@ -593,10 +524,7 @@ des publicités et des stratégies de communication.
 <h2>🤖 Générateur de Prompt IA</h2>
 
 <p class="generator-description">
-
-Décrivez ce que vous voulez obtenir et HK Digital AI Studio
-vous prépare un prompt structuré et professionnel.
-
+Créez un prompt professionnel adapté à votre besoin.
 </p>
 
 
@@ -646,7 +574,7 @@ vous prépare un prompt structuré et professionnel.
 <input
 type="text"
 id="audience"
-placeholder="Exemple : entrepreneurs africains"
+placeholder="Ex : entrepreneurs africains"
 />
 
 </div>
@@ -676,7 +604,7 @@ placeholder="Exemple : entrepreneurs africains"
 
 <textarea
 id="objective"
-placeholder="Exemple : Je veux créer une publication Facebook pour promouvoir ma formation Canva."
+placeholder="Ex : Je veux créer une publication Facebook pour promouvoir ma formation Canva."
 ></textarea>
 
 </div>
@@ -685,19 +613,13 @@ placeholder="Exemple : Je veux créer une publication Facebook pour promouvoir m
 
 
 <button class="primary-button" onclick="generatePrompt()">
-
 ✨ Générer mon prompt
-
 </button>
 
 
 <div class="result" id="result">
 
-<div class="result-header">
-
 <h3>✨ Votre prompt</h3>
-
-</div>
 
 <div class="result-box" id="resultText"></div>
 
@@ -770,11 +692,12 @@ placeholder="Exemple : Je veux créer une publication Facebook pour promouvoir m
 <h2>💎 Choisissez votre abonnement</h2>
 
 <p class="pricing-intro">
-Des formules simples et accessibles pour utiliser HK Digital AI Studio selon vos besoins.
+Des formules simples et accessibles selon vos besoins.
 </p>
 
 
 <div class="pricing-grid">
+
 
 <div class="price-card">
 
@@ -782,9 +705,7 @@ Des formules simples et accessibles pour utiliser HK Digital AI Studio selon vos
 
 <div class="price">0 FCFA</div>
 
-<div class="duration">
-Accès découverte
-</div>
+<div class="duration">Accès découverte</div>
 
 <ul>
 <li>✓ 10 crédits offerts</li>
@@ -807,9 +728,7 @@ Commencer gratuitement
 
 <div class="price">200 FCFA</div>
 
-<div class="duration">
-24 heures
-</div>
+<div class="duration">24 heures</div>
 
 <ul>
 <li>✓ 20 crédits</li>
@@ -834,9 +753,7 @@ Choisir
 
 <div class="price">1 000 FCFA</div>
 
-<div class="duration">
-7 jours
-</div>
+<div class="duration">7 jours</div>
 
 <ul>
 <li>✓ 150 crédits</li>
@@ -857,17 +774,13 @@ Choisir
 
 <div class="price-card popular">
 
-<div class="badge">
-⭐ LE PLUS POPULAIRE
-</div>
+<div class="badge">⭐ LE PLUS POPULAIRE</div>
 
 <h3>🚀 PRO</h3>
 
 <div class="price">3 000 FCFA</div>
 
-<div class="duration">
-30 jours
-</div>
+<div class="duration">30 jours</div>
 
 <div class="savings">
 Excellent rapport qualité/prix
@@ -900,9 +813,7 @@ Excellent rapport qualité/prix
 
 <div class="price">30 000 FCFA</div>
 
-<div class="duration">
-365 jours
-</div>
+<div class="duration">365 jours</div>
 
 <div class="savings">
 💰 Économisez 6 000 FCFA
@@ -924,6 +835,7 @@ Excellent rapport qualité/prix
 
 </div>
 
+
 </div>
 
 </section>
@@ -934,47 +846,47 @@ Excellent rapport qualité/prix
 <footer>
 
 <p>HK Digital AI Studio</p>
+
 <p>Le digital au service de vos ambitions.</p>
 
 </footer>
 
 
-<!-- MODAL COMPTE -->
+<!-- AUTHENTIFICATION -->
 
-<div class="modal" id="accountModal">
+<div class="modal" id="authModal">
 
-<div class="modal-content">
+<div class="modal-box">
 
-<span class="close" onclick="closeAccount()">×</span>
-
-<div id="authArea">
+<button class="close" onclick="closeAuth()">×</button>
 
 <h2>👤 Mon compte</h2>
 
-<p class="modal-description">
-Connectez-vous ou créez votre compte HK Digital AI Studio.
-</p>
+
+<div id="authContent">
+
 
 <div class="auth-tabs">
 
 <button
-class="auth-tab active"
 id="loginTab"
-onclick="showAuthTab('login')">
+class="active"
+onclick="showLogin()">
 Connexion
 </button>
 
 <button
-class="auth-tab"
 id="signupTab"
-onclick="showAuthTab('signup')">
-Inscription
+onclick="showSignup()">
+Créer un compte
 </button>
 
 </div>
 
 
-<div class="auth-form active" id="loginForm">
+<div id="loginForm">
+
+<div class="auth-form">
 
 <input
 type="email"
@@ -988,14 +900,26 @@ id="loginPassword"
 placeholder="Votre mot de passe"
 >
 
-<button class="auth-button" onclick="loginUser()">
-🔑 Se connecter
+<button
+class="auth-submit"
+onclick="login()">
+🔐 Se connecter
 </button>
 
 </div>
 
+</div>
 
-<div class="auth-form" id="signupForm">
+
+<div id="signupForm" style="display:none;">
+
+<div class="auth-form">
+
+<input
+type="text"
+id="signupName"
+placeholder="Votre nom complet"
+>
 
 <input
 type="email"
@@ -1006,12 +930,16 @@ placeholder="Votre adresse email"
 <input
 type="password"
 id="signupPassword"
-placeholder="Créer un mot de passe"
+placeholder="Mot de passe"
 >
 
-<button class="auth-button" onclick="signupUser()">
-✨ Créer mon compte
+<button
+class="auth-submit"
+onclick="signup()">
+🚀 Créer mon compte
 </button>
+
+</div>
 
 </div>
 
@@ -1024,25 +952,31 @@ id="authMessage">
 </div>
 
 
-<div id="loggedArea" style="display:none;">
-
-<h2>👤 Mon compte</h2>
+<div id="accountContent" style="display:none;">
 
 <div class="account-info">
 
 <p>
-<strong>Email :</strong>
-<span id="userEmail"></span>
+<strong>👤 Nom :</strong>
+<span id="profileName"></span>
 </p>
 
-<p>
+<p style="margin-top:8px;">
 <strong>⚡ Crédits :</strong>
-<span id="accountCredits"></span>
+<span id="profileCredits"></span>
+</p>
+
+<p style="margin-top:8px;">
+<strong>💎 Plan :</strong>
+<span id="profilePlan"></span>
 </p>
 
 </div>
 
-<button class="logout-button" onclick="logoutUser()">
+
+<button
+class="auth-submit"
+onclick="logout()">
 🚪 Se déconnecter
 </button>
 
@@ -1055,15 +989,18 @@ id="authMessage">
 
 <script>
 
-/* ==========================================
+
+/* =====================================================
    CONFIGURATION SUPABASE
-========================================== */
+===================================================== */
+
 
 const SUPABASE_URL =
 "https://bftxvxsnmlbzvdwggthl.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_R92N5P5jzxePZfpCnXSDLw_otiD_D5b";
+
 
 const supabaseClient =
 supabase.createClient(
@@ -1072,56 +1009,72 @@ supabase.createClient(
 );
 
 
-/* ==========================================
+/* =====================================================
    VARIABLES
-========================================== */
+===================================================== */
+
 
 let currentUser = null;
-let currentCredits = 0;
+
+let currentProfile = null;
 
 
-/* ==========================================
+/* =====================================================
    INITIALISATION
-========================================== */
+===================================================== */
+
 
 document.addEventListener("DOMContentLoaded", async function() {
 
     await checkUser();
 
-    supabaseClient.auth.onAuthStateChange(
-        async function(event, session) {
-
-            currentUser =
-                session ? session.user : null;
-
-            if (currentUser) {
-
-                await loadProfile();
-
-            } else {
-
-                currentCredits = 0;
-
-                updateInterface();
-
-            }
-
-        }
-    );
-
 });
 
-
-/* ==========================================
-   VERIFIER L'UTILISATEUR
-========================================== */
 
 async function checkUser() {
 
     const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (user) {
+
+        currentUser = user;
+
+        await loadProfile();
+
+    } else {
+
+        updateLoggedOut();
+
+    }
+
+}
+
+
+/* =====================================================
+   CHARGER LE PROFIL
+===================================================== */
+
+
+async function loadProfile() {
+
+    if (!currentUser) return;
+
+
+    const {
         data,
         error
-    } = await supabaseClient.auth.getSession();
+    } = await supabaseClient
+
+        .from("profiles")
+
+        .select("*")
+
+        .eq("id", currentUser.id)
+
+        .single();
+
 
     if (error) {
 
@@ -1131,169 +1084,173 @@ async function checkUser() {
 
     }
 
-    if (data.session) {
 
-        currentUser = data.session.user;
+    currentProfile = data;
 
-        await loadProfile();
+
+    document.getElementById("creditsDisplay").textContent =
+        "⚡ " + data.credits + " crédits";
+
+
+    document.getElementById("accountButton").textContent =
+        "👤 " + (data.full_name || "Mon compte");
+
+
+    document.getElementById("profileName").textContent =
+        data.full_name || "Utilisateur";
+
+
+    document.getElementById("profileCredits").textContent =
+        data.credits;
+
+
+    document.getElementById("profilePlan").textContent =
+        data.plan;
+
+}
+
+
+/* =====================================================
+   ÉTAT DÉCONNECTÉ
+===================================================== */
+
+
+function updateLoggedOut() {
+
+    currentUser = null;
+
+    currentProfile = null;
+
+
+    document.getElementById("creditsDisplay").textContent =
+        "⚡ 0 crédits";
+
+
+    document.getElementById("accountButton").textContent =
+        "👤 Se connecter";
+
+}
+
+
+/* =====================================================
+   OUVRIR LE COMPTE
+===================================================== */
+
+
+function openAuth() {
+
+    document.getElementById("authModal").style.display =
+        "flex";
+
+
+    if (currentUser) {
+
+        document.getElementById("authContent").style.display =
+            "none";
+
+        document.getElementById("accountContent").style.display =
+            "block";
 
     } else {
 
-        currentUser = null;
+        document.getElementById("authContent").style.display =
+            "block";
 
-        updateInterface();
-
-    }
-
-}
-
-
-/* ==========================================
-   CHARGER LE PROFIL
-========================================== */
-
-async function loadProfile() {
-
-    if (!currentUser) return;
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", currentUser.id)
-        .single();
-
-    if (error) {
-
-        console.error(
-            "Erreur chargement profil :",
-            error
-        );
-
-        /*
-        Si le profil n'existe pas encore,
-        on tente de le créer.
-        */
-
-        await createProfile();
-
-        return;
+        document.getElementById("accountContent").style.display =
+            "none";
 
     }
 
-    currentCredits =
-        Number(data.credits ?? 10);
+}
 
-    updateInterface();
+
+function closeAuth() {
+
+    document.getElementById("authModal").style.display =
+        "none";
 
 }
 
 
-/* ==========================================
-   CREER LE PROFIL
-========================================== */
+/* =====================================================
+   FORMULAIRE CONNEXION
+===================================================== */
 
-async function createProfile() {
 
-    if (!currentUser) return;
+function showLogin() {
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
-        .insert({
+    document.getElementById("loginForm").style.display =
+        "block";
 
-            id: currentUser.id,
+    document.getElementById("signupForm").style.display =
+        "none";
 
-            email: currentUser.email,
+    document.getElementById("loginTab").classList.add("active");
 
-            credits: 10
-
-        })
-        .select()
-        .single();
-
-    if (error) {
-
-        console.error(
-            "Erreur création profil :",
-            error
-        );
-
-        return;
-
-    }
-
-    currentCredits = 10;
-
-    updateInterface();
+    document.getElementById("signupTab").classList.remove("active");
 
 }
 
 
-/* ==========================================
-   INTERFACE
-========================================== */
+function showSignup() {
 
-function updateInterface() {
+    document.getElementById("loginForm").style.display =
+        "none";
 
-    document.getElementById(
-        "creditsDisplay"
-    ).textContent =
-        currentUser
-        ? currentCredits
-        : "10";
+    document.getElementById("signupForm").style.display =
+        "block";
 
-    document.getElementById(
-        "accountButtonText"
-    ).textContent =
-        currentUser
-        ? "Mon compte"
-        : "Connexion";
+    document.getElementById("loginTab").classList.remove("active");
+
+    document.getElementById("signupTab").classList.add("active");
 
 }
 
 
-/* ==========================================
+/* =====================================================
    INSCRIPTION
-========================================== */
+===================================================== */
 
-async function signupUser() {
+
+async function signup() {
+
+    const name =
+        document.getElementById("signupName").value.trim();
 
     const email =
-        document.getElementById(
-            "signupEmail"
-        ).value.trim();
+        document.getElementById("signupEmail").value.trim();
 
     const password =
-        document.getElementById(
-            "signupPassword"
-        ).value;
+        document.getElementById("signupPassword").value;
 
-    if (!email || !password) {
 
-        showAuthMessage(
-            "Veuillez remplir tous les champs.",
-            false
-        );
+    const message =
+        document.getElementById("authMessage");
+
+
+    if (!name || !email || !password) {
+
+        message.textContent =
+            "⚠️ Veuillez remplir tous les champs.";
 
         return;
 
     }
+
 
     if (password.length < 6) {
 
-        showAuthMessage(
-            "Le mot de passe doit contenir au moins 6 caractères.",
-            false
-        );
+        message.textContent =
+            "⚠️ Le mot de passe doit contenir au moins 6 caractères.";
 
         return;
 
     }
+
+
+    message.textContent =
+        "⏳ Création de votre compte...";
+
 
     const {
         data,
@@ -1302,10 +1259,38 @@ async function signupUser() {
 
         email: email,
 
-        password: password
+        password: password,
+
+        options: {
+
+            data: {
+
+                full_name: name
+
+            }
+
+        }
 
     });
 
+
     if (error) {
+
+        message.textContent =
+            "❌ " + error.message;
+
+        return;
+
+    }
+
+
+    if (data.session) {
+
+        currentUser = data.user;
+
+        await loadProfile();
+
+        message.textContent =
+            "✅ Compte créé avec succès !";
 
         s
