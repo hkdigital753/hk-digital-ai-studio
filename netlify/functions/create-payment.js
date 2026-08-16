@@ -1,22 +1,23 @@
 exports.handler = async function (event) {
 
     // --------------------------------------------------
-    // 1. Vérification de la méthode
+    // 1. Vérification de la méthode HTTP
     // --------------------------------------------------
 
     if (event.httpMethod !== "POST") {
 
         return {
             statusCode: 405,
+
             headers: {
                 "Content-Type": "application/json"
             },
+
             body: JSON.stringify({
                 success: false,
                 error: "Méthode non autorisée."
             })
         };
-
     }
 
 
@@ -32,36 +33,55 @@ exports.handler = async function (event) {
 
             body = JSON.parse(event.body || "{}");
 
-        } catch (parseError) {
+        } catch (error) {
 
             return {
                 statusCode: 400,
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
                     success: false,
-                    error: "Les données reçues ne sont pas au format JSON."
+                    error: "Les données reçues ne sont pas un JSON valide."
                 })
             };
-
         }
 
 
-        const plan = String(body.plan || "").trim().toUpperCase();
+        const plan =
+            String(body.plan || "")
+                .trim()
+                .toUpperCase();
 
-        const email = String(body.email || "").trim();
+        const email =
+            String(body.email || "")
+                .trim();
 
-        const userId = String(body.user_id || "").trim();
+        const userId =
+            String(body.user_id || "")
+                .trim();
 
 
-        console.log("========== NOUVELLE DEMANDE DE PAIEMENT ==========");
+        console.log(
+            "========== NOUVELLE DEMANDE DE PAIEMENT =========="
+        );
 
-        console.log("Plan reçu :", plan);
+        console.log(
+            "Plan reçu :",
+            plan
+        );
 
-        console.log("Email reçu :", email ? "présent" : "absent");
+        console.log(
+            "Email reçu :",
+            email ? "présent" : "absent"
+        );
 
-        console.log("User ID reçu :", userId ? "présent" : "absent");
+        console.log(
+            "User ID reçu :",
+            userId ? "présent" : "absent"
+        );
 
 
         // --------------------------------------------------
@@ -72,15 +92,16 @@ exports.handler = async function (event) {
 
             return {
                 statusCode: 400,
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
                     success: false,
                     error: "La formule d'abonnement est obligatoire."
                 })
             };
-
         }
 
 
@@ -88,15 +109,16 @@ exports.handler = async function (event) {
 
             return {
                 statusCode: 400,
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
                     success: false,
                     error: "L'adresse email est obligatoire."
                 })
             };
-
         }
 
 
@@ -137,23 +159,31 @@ exports.handler = async function (event) {
         };
 
 
-        const selectedPlan = plans[plan];
+        const selectedPlan =
+            plans[plan];
 
 
         if (!selectedPlan) {
 
             return {
                 statusCode: 400,
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
+
                     success: false,
-                    error: "Formule inconnue.",
-                    received_plan: plan
+
+                    error:
+                        "Formule d'abonnement inconnue.",
+
+                    received_plan:
+                        plan
+
                 })
             };
-
         }
 
 
@@ -170,7 +200,7 @@ exports.handler = async function (event) {
 
 
         // --------------------------------------------------
-        // 5. Vérification de la clé FedaPay
+        // 5. Récupération de la clé secrète FedaPay
         // --------------------------------------------------
 
         const secretKey =
@@ -180,20 +210,25 @@ exports.handler = async function (event) {
         if (!secretKey) {
 
             console.error(
-                "ERREUR : FEDAPAY_SECRET_KEY est absente."
+                "FEDAPAY_SECRET_KEY est absente."
             );
 
             return {
                 statusCode: 500,
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
+
                     success: false,
-                    error: "La clé secrète FedaPay n'est pas configurée dans Netlify."
+
+                    error:
+                        "La clé secrète FedaPay n'est pas configurée dans Netlify."
+
                 })
             };
-
         }
 
 
@@ -203,7 +238,7 @@ exports.handler = async function (event) {
 
 
         // --------------------------------------------------
-        // 6. URL FedaPay TEST
+        // 6. API FedaPay TEST
         // --------------------------------------------------
 
         const fedapayApi =
@@ -219,70 +254,74 @@ exports.handler = async function (event) {
         );
 
 
-        const transactionResponse = await fetch(
-            `${fedapayApi}/v1/transactions`,
-            {
-                method: "POST",
+        const transactionResponse =
+            await fetch(
+                `${fedapayApi}/v1/transactions`,
+                {
 
-                headers: {
+                    method: "POST",
 
-                    "Authorization":
-                        `Bearer ${secretKey}`,
+                    headers: {
 
-                    "Content-Type":
-                        "application/json",
+                        "Authorization":
+                            `Bearer ${secretKey}`,
 
-                    "Accept":
-                        "application/json"
+                        "Content-Type":
+                            "application/json",
 
-                },
+                        "Accept":
+                            "application/json"
 
-                body: JSON.stringify({
-
-                    description:
-                        selectedPlan.name,
-
-                    amount:
-                        selectedPlan.amount,
-
-                    currency: {
-                        iso: "XOF"
                     },
 
-                    callback_url:
-                        `${process.env.URL || "https://hk-digital-stu-ai.netlify.app"}/?payment=return`,
+                    body: JSON.stringify({
 
-                    custom_metadata: {
+                        description:
+                            selectedPlan.name,
 
-                        plan: plan,
+                        amount:
+                            selectedPlan.amount,
 
-                        email: email,
+                        currency: {
+                            iso: "XOF"
+                        },
 
-                        user_id: userId,
+                        callback_url:
+                            `${process.env.URL || "https://hk-digital-stu-ai.netlify.app"}/?payment=return`,
 
-                        credits:
-                            selectedPlan.credits,
+                        custom_metadata: {
 
-                        duration:
-                            selectedPlan.duration
+                            plan:
+                                plan,
 
-                    }
+                            email:
+                                email,
 
-                })
+                            user_id:
+                                userId,
 
-            }
-        );
+                            credits:
+                                selectedPlan.credits,
+
+                            duration:
+                                selectedPlan.duration
+
+                        }
+
+                    })
+                }
+            );
 
 
         // --------------------------------------------------
-        // 8. Lire la réponse FedaPay
+        // 8. Lecture de la réponse FedaPay
         // --------------------------------------------------
 
         const responseText =
             await transactionResponse.text();
 
 
-        let transactionData = null;
+        let transactionData;
 
 
         try {
@@ -290,13 +329,34 @@ exports.handler = async function (event) {
             transactionData =
                 JSON.parse(responseText);
 
-        } catch (jsonError) {
+        } catch (error) {
 
-            transactionData = {
-                raw_response:
-                    responseText
+            console.error(
+                "La réponse FedaPay n'est pas du JSON."
+            );
+
+            return {
+
+                statusCode: 502,
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    success: false,
+
+                    error:
+                        "FedaPay a retourné une réponse invalide.",
+
+                    fedapay_status:
+                        transactionResponse.status
+
+                })
+
             };
-
         }
 
 
@@ -320,7 +380,7 @@ exports.handler = async function (event) {
 
 
         // --------------------------------------------------
-        // 9. Si FedaPay refuse la transaction
+        // 9. Vérification du statut HTTP
         // --------------------------------------------------
 
         if (!transactionResponse.ok) {
@@ -330,6 +390,7 @@ exports.handler = async function (event) {
             );
 
             return {
+
                 statusCode:
                     transactionResponse.status,
 
@@ -354,25 +415,63 @@ exports.handler = async function (event) {
                 })
 
             };
-
         }
 
 
         // --------------------------------------------------
-        // 10. Recherche robuste de l'ID
+        // 10. Récupération de la transaction
+        //
+        // FedaPay retourne :
+        //
+        // {
+        //   "v1/transaction": {
+        //       "id": ...,
+        //       "payment_url": ...
+        //   }
+        // }
         // --------------------------------------------------
 
         const transaction =
-            transactionData?.v1 ||
-            transactionData?.transaction ||
-            transactionData;
+            transactionData["v1/transaction"];
 
+
+        if (!transaction) {
+
+            console.error(
+                "La propriété v1/transaction est absente."
+            );
+
+            return {
+
+                statusCode: 502,
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    success: false,
+
+                    error:
+                        "La réponse FedaPay ne contient pas v1/transaction.",
+
+                    fedapay_response:
+                        transactionData
+
+                })
+
+            };
+        }
+
+
+        // --------------------------------------------------
+        // 11. Identifiant de transaction
+        // --------------------------------------------------
 
         const transactionId =
-            transaction?.id ||
-            transaction?.transaction_id ||
-            transactionData?.id ||
-            transactionData?.transaction_id;
+            transaction.id;
 
 
         console.log(
@@ -381,17 +480,10 @@ exports.handler = async function (event) {
         );
 
 
-        // --------------------------------------------------
-        // 11. Si aucun ID n'est trouvé
-        // --------------------------------------------------
-
         if (!transactionId) {
 
-            console.error(
-                "FedaPay a répondu mais aucun identifiant n'a été trouvé."
-            );
-
             return {
+
                 statusCode: 502,
 
                 headers: {
@@ -406,149 +498,21 @@ exports.handler = async function (event) {
                     error:
                         "FedaPay n'a pas retourné d'identifiant de transaction.",
 
-                    diagnostic:
-                        "La transaction semble avoir été reçue, mais la structure de la réponse doit être vérifiée.",
-
                     fedapay_response:
                         transactionData
 
                 })
 
             };
-
         }
 
 
         // --------------------------------------------------
-        // 12. Demander le token de paiement
-        // --------------------------------------------------
-
-        console.log(
-            "Demande du token de paiement..."
-        );
-
-
-        const tokenResponse = await fetch(
-
-            `${fedapayApi}/v1/transactions/${transactionId}/token`,
-
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Authorization":
-                        `Bearer ${secretKey}`,
-
-                    "Content-Type":
-                        "application/json",
-
-                    "Accept":
-                        "application/json"
-
-                }
-
-            }
-
-        );
-
-
-        const tokenText =
-            await tokenResponse.text();
-
-
-        let tokenData = null;
-
-
-        try {
-
-            tokenData =
-                JSON.parse(tokenText);
-
-        } catch (jsonError) {
-
-            tokenData = {
-                raw_response:
-                    tokenText
-            };
-
-        }
-
-
-        console.log(
-            "========== RÉPONSE TOKEN FEDAPAY =========="
-        );
-
-        console.log(
-            "HTTP STATUS TOKEN :",
-            tokenResponse.status
-        );
-
-        console.log(
-            "Réponse token :",
-            JSON.stringify(
-                tokenData,
-                null,
-                2
-            )
-        );
-
-
-        // --------------------------------------------------
-        // 13. Vérifier le token
-        // --------------------------------------------------
-
-        if (!tokenResponse.ok) {
-
-            return {
-                statusCode:
-                    tokenResponse.status,
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    success: false,
-
-                    error:
-                        "La transaction a été créée, mais FedaPay n'a pas généré le lien de paiement.",
-
-                    transaction_id:
-                        transactionId,
-
-                    fedapay_response:
-                        tokenData
-
-                })
-
-            };
-
-        }
-
-
-        // --------------------------------------------------
-        // 14. Recherche robuste du lien de paiement
+        // 12. Récupération directe du lien de paiement
         // --------------------------------------------------
 
         const paymentUrl =
-
-            tokenData?.url ||
-
-            tokenData?.payment_url ||
-
-            tokenData?.paymentUrl ||
-
-            tokenData?.redirect_url ||
-
-            tokenData?.token_url ||
-
-            tokenData?.v1?.url ||
-
-            tokenData?.v1?.payment_url;
+            transaction.payment_url;
 
 
         console.log(
@@ -556,10 +520,6 @@ exports.handler = async function (event) {
             paymentUrl ? "OUI" : "NON"
         );
 
-
-        // --------------------------------------------------
-        // 15. Si aucun lien n'est trouvé
-        // --------------------------------------------------
 
         if (!paymentUrl) {
 
@@ -577,23 +537,22 @@ exports.handler = async function (event) {
                     success: false,
 
                     error:
-                        "FedaPay a créé la transaction mais aucun lien de paiement n'a été trouvé.",
+                        "FedaPay a créé la transaction mais n'a pas retourné de lien de paiement.",
 
                     transaction_id:
                         transactionId,
 
                     fedapay_response:
-                        tokenData
+                        transactionData
 
                 })
 
             };
-
         }
 
 
         // --------------------------------------------------
-        // 16. Succès
+        // 13. Succès
         // --------------------------------------------------
 
         console.log(
@@ -606,9 +565,28 @@ exports.handler = async function (event) {
         );
 
         console.log(
+            "Référence :",
+            transaction.reference || "non disponible"
+        );
+
+        console.log(
+            "Montant :",
+            transaction.amount
+        );
+
+        console.log(
+            "Statut :",
+            transaction.status
+        );
+
+        console.log(
             "Lien de paiement généré : OUI"
         );
 
+
+        // --------------------------------------------------
+        // 14. Retour vers l'application
+        // --------------------------------------------------
 
         return {
 
@@ -629,11 +607,20 @@ exports.handler = async function (event) {
                 transaction_id:
                     transactionId,
 
+                reference:
+                    transaction.reference || null,
+
+                status:
+                    transaction.status || "pending",
+
                 plan:
                     plan,
 
                 amount:
-                    selectedPlan.amount
+                    selectedPlan.amount,
+
+                credits:
+                    selectedPlan.credits
 
             })
 
@@ -642,9 +629,8 @@ exports.handler = async function (event) {
 
     } catch (error) {
 
-
         // --------------------------------------------------
-        // 17. Erreur générale
+        // 15. Erreur générale
         // --------------------------------------------------
 
         console.error(
@@ -673,12 +659,11 @@ exports.handler = async function (event) {
                     "Erreur interne lors de la préparation du paiement.",
 
                 message:
-                    error.message || "Erreur inconnue."
+                    error.message ||
+                    "Erreur inconnue."
 
             })
 
         };
-
     }
-
 };
